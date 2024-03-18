@@ -351,6 +351,7 @@ def infoType_11_decode(infos:list,allowEmptyID:bool=False) -> list:
 
     if 'flags' in infos['qualifierMeaning']:
         for flag in infos['qualifierMeaning']['flags']:
+            if fields_found["subType"] == "Detector/Sensor" : fields_found["command"]=flag
             fields_found[flag]=1
 
     fields_found["id"]=infos["id"]
