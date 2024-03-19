@@ -409,7 +409,7 @@ async def async_unload_entry(hass, entry):
     await hass.config_entries.async_forward_entry_unload(entry, "switch")
     await hass.config_entries.async_forward_entry_unload(entry, "number")
     hass
-    return False
+    return None
     
 
 async def async_remove_entry(hass, entry) -> None:
