@@ -1,3 +1,5 @@
+[![](https://img.shields.io/github/v/release/Doubledom45/HA-2024.3-RFPLAYER.svg?include_prereleases&style=for-the-badge)](https://github.com/Doubledom45/HA-2024.3-RFPLAYER/releases)
+
 ![1](https://github.com/Doubledom45/HA-2024.3-RFPLAYER/assets/97252459/6b4f6937-2cb5-4483-a4dd-5de4a2b3fb7c)
 
 # HA-2024.3-RFPLAYER
