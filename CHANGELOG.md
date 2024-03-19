@@ -1,5 +1,5 @@
 # CHANGELOG
-## 1.
+## 1.3
 👉MAJ sur le Reload et configure 
 ## 1.2
 MAJ en cours
