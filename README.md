@@ -1,4 +1,3 @@
-[![](https://img.shields.io/github/v/release/Doubledom45/HA-2024.3-RFPLAYER.svg?include_prereleases&style=for-the-badge)](https://github.com/Doubledom45/HA-2024.3-RFPLAYER/releases)
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Doubledom45&repository=HA-2024.3-RFPLAYER&category=integration)
 
