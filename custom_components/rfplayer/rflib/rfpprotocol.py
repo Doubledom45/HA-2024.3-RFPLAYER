@@ -183,7 +183,7 @@ class PacketHandling(ProtocolBase):
         elif device_address is not None:
             DIM_ADDON=""
             if command == "DIM": 
-                if protocol == "RTS":
+                if protocol == "RTS" or protocol == "X2DSHUTTER":
                     DIM_ADDON="%4"
                     self.send_raw_packet(f"ZIA++{command} {protocol} {device_address} {DIM_ADDON}")
                 else:
