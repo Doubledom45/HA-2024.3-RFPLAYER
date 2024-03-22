@@ -186,8 +186,9 @@ class PacketHandling(ProtocolBase):
                 if protocol == "RTS":
                     DIM_ADDON="%4"
                     self.send_raw_packet(f"ZIA++{command} {protocol} {device_address} {DIM_ADDON}")
-                # else:
-                #     DIM_ADDON= "%50"
+                else:
+                    if pourcent_dim is None:
+                        pourcent_dim == "%50"
                     self.send_raw_packet(f"ZIA++{command} {protocol} {device_address} {pourcent_dim}")
         elif protocol == "EDISIOFRAME":
             self.send_raw_packet(f"ZIA++{command}")
