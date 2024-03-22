@@ -48,6 +48,9 @@ PACKET_FIELDS = {
     "d1":"d1",
     "d2":"d2",
     "d3":"d3",
+    "d4":"d4",
+    "flag":"flags",
+    "qua":"qualifier",
     "typ":"subType",
     "dbg":"debug",
     #Pour EDISIO 868
@@ -113,6 +116,7 @@ PACKET_HEADER_RE = (
         [
             "ZIA--",  # command reply
             "ZIA33",  # json reply
+            "ZIA66",  # Retour EDISIOFRAME HEXA
         ]
     )
     + ")"
@@ -152,10 +156,10 @@ def decode_packet(packet: str) -> list:
                 protocol="WELCOME"
                 message=frame
                 packets_found.append(globals()["_".join([protocol,"decode"])](data,message,PacketHeader.gateway.name))
-            elif frame.startswith('ZIA--'):
-                protocol="Status"
-                message= frame
-                packets_found.append(globals()["_".join([protocol,"decode"])](data,message,PacketHeader.gateway.name))
+            elif frame.startswith('PONG'):
+                protocol="PONG"
+                message=frame
+                packets_found.append(globals()["_".join([protocol,"decode"])](data,message,PacketHeader.gateway.name))                
             elif frame.startswith('RECEIVED'):
                 protocol="RECEIVED"
                 message=frame
@@ -169,10 +173,6 @@ def decode_packet(packet: str) -> list:
                 for protocol in message:
                     packets_found.append(globals()["_".join([protocol,"decode"])](data,message,PacketHeader.gateway.name))
 
-            
-            #packets_found.append(globals()["_".join([data["protocol"],"decode"])](data,message,PacketHeader.gateway.name))
-            #return [data]
-        
         case "ZIA33":
             # Protocols
             message = json.loads(packet.replace("ZIA33", ""))["frame"]
@@ -185,7 +185,19 @@ def decode_packet(packet: str) -> list:
                 log.error("Protocol %s not implemented : %s", str(data["protocol"]),str(e))
                 log.debug("Trace : %s",traceback.format_exc())
                 log.debug("Message : %s", str(message))
-        
+
+        case "ZIA66":
+            #Retour EDISIOFRAME
+            frame=packet.replace("ZIA66 ", "")
+            if frame.startswith('EDISIOFRAME'):
+                message= frame
+                protocol="EDISIOFRAME"
+                packets_found.append(globals()["_".join([protocol,"decode"])](data,message,PacketHeader.gateway.name))
+            else:
+                message = json.loads(frame)
+                for protocol in message:
+                    packets_found.append(globals()["_".join([protocol,"decode"])](data,message,PacketHeader.gateway.name))
+                    
     #if packets_found==[None]:
     #    log.error("No packets found in %s", str(message))
     #log.debug("Packets Found : %s", str(packets_found))

@@ -49,8 +49,8 @@ class ProtocolBase(asyncio.Protocol):
         """Just logging for now."""
         self.transport = transport
         #self.send_raw_packet("ZIA++HELLO")
-        #for command in self.options.get('START_COMMANDS',[]):
-        #    self.send_raw_packet("ZIA++"+command)
+        for command in self.options.get('START_COMMANDS',[]):
+            self.send_raw_packet("ZIA++"+command)
         
         
         #log.debug("initialized")
@@ -58,7 +58,7 @@ class ProtocolBase(asyncio.Protocol):
     def init_commands(self) -> None:
         """Just logging for now."""
         #self.transport = transport
-        self.send_raw_packet("ZIA++HELLO")
+        self.send_raw_packet("ZIA++HELLO. PING")
         for command in self.options.get('START_COMMANDS',[]):
             self.send_raw_packet("ZIA++"+command)
         
@@ -146,7 +146,7 @@ class PacketHandling(ProtocolBase):
                         #log.debug("handle packet: %s", packet)
                         self.handle_packet(packet)
         else:
-            log.warning("no valid packet")
+            log.warning("no valid packet, ou ZIA66 = Retour Info")
 
     def handle_packet(self, packet: PacketType) -> None:
         """Process incoming packet dict and optionally call callback."""
@@ -172,6 +172,7 @@ class PacketHandling(ProtocolBase):
         command: str,
         device_address: str = None,
         device_id: str = None,
+        pourcent_dim: str = None,
     ) -> None:
         """Send device command to rfplayer gateway."""
         if device_id is not None:
@@ -181,9 +182,13 @@ class PacketHandling(ProtocolBase):
                 self.send_raw_packet(f"ZIA++{command} {protocol} ID {device_id}")
         elif device_address is not None:
             DIM_ADDON=""
-            if command == "DIM" :
-                DIM_ADDON="%50"
-            self.send_raw_packet(f"ZIA++{command} {protocol} {device_address} {DIM_ADDON}")
+            if command == "DIM": 
+                if protocol == "RTS":
+                    DIM_ADDON="%4"
+                    self.send_raw_packet(f"ZIA++{command} {protocol} {device_address} {DIM_ADDON}")
+                # else:
+                #     DIM_ADDON= "%50"
+                    self.send_raw_packet(f"ZIA++{command} {protocol} {device_address} {pourcent_dim}")
         elif protocol == "EDISIOFRAME":
             self.send_raw_packet(f"ZIA++{command}")
         else:
