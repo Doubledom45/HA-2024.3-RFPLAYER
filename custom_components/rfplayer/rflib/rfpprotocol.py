@@ -179,21 +179,25 @@ class PacketHandling(ProtocolBase):
             if protocol == "EDISIOFRAME" :
                 self.send_raw_packet(f"ZIA++{protocol} {device_id}")
             else :
-                self.send_raw_packet(f"ZIA++{command} {protocol} ID {device_id}")
+                self.send_raw_packet(f"ZIA++{command} ID {device_id} {protocol}")
         elif device_address is not None:
-            DIM_ADDON=""
             if command == "DIM": 
                 if protocol == "RTS" or protocol == "X2DSHUTTER":
                     DIM_ADDON="%4"
                     self.send_raw_packet(f"ZIA++{command} {protocol} {device_address} {DIM_ADDON}")
                 else:
-                    if pourcent_dim is None:
-                        pourcent_dim == "%50"
-                    self.send_raw_packet(f"ZIA++{command} {protocol} {device_address} {pourcent_dim}")
+                    if pourcent_dim is not None:
+                        self.send_raw_packet(f"ZIA++{command} {protocol} {device_address} %{pourcent_dim}")
+                    else:
+                        pourcent_dim == "50"
+                        self.send_raw_packet(f"ZIA++{command} {protocol} {device_address} %{pourcent_dim}")                        
+            else:
+                self.send_raw_packet(f"ZIA++{command} {device_address} {protocol} ")
         elif protocol == "EDISIOFRAME":
             self.send_raw_packet(f"ZIA++{command}")
         else:
-            self.send_raw_packet(f"ZIA++{protocol} {command}")
+            self.send_raw_packet(f"ZIA++{command} {device_address} {protocol} ")
+
 
     def send_raw_command(
         self,
