@@ -241,8 +241,7 @@ async def async_setup_entry(hass, entry):
             event_callback=event_callback,
             disconnect_callback=reconnect,
             loop=hass.loop,
-        #     options={'START_COMMANDS':["1 FORMAT JSON . RECEIVER + *. SENSITIVITY L 0. SENSITIVITY H 0. SELECTIVITY L 0. SELECTIVITY H 0. RFLINK 1. RFLINKTRIGGER L 0. RFLINKTRIGGER H 0. LBT 16. STATUS JSON"]},
-        # )
+
             options={'START_COMMANDS':[
                             "FORMAT "+str(options.get(CONF_FORMAT,"JSON")),
                             ReceiverCommand,
@@ -333,7 +332,6 @@ async def async_unload_entry(hass, entry):
     
 class RfplayerDevice(RestoreEntity):
     """Representation of a Rfplayer device.
-
     Contains the common logic for Rfplayer entities.
     """
 
@@ -351,7 +349,6 @@ class RfplayerDevice(RestoreEntity):
         name=None,
     ):
         """Initialize the device."""
-        # Rflink specific attributes for every component type
         self._initial_event = initial_event
         self._protocol = protocol
         self._attr_protocol = protocol
@@ -360,7 +357,7 @@ class RfplayerDevice(RestoreEntity):
         self._event = None
         self._state: bool = None
         self._attr_assumed_state = True
-        
+
         if name is not None:
             self._attr_name = name
             self._attr_unique_id = slugify(f"{protocol}_{name}")
@@ -382,7 +379,6 @@ class RfplayerDevice(RestoreEntity):
         await rfplayer.han(
             frame=frame,
         )
-        
 
     @callback
     def handle_event_callback(self, event):
@@ -435,12 +431,12 @@ class RfplayerDevice(RestoreEntity):
     def available(self):
         """Return True if entity is available."""
         return bool(self._protocol)
-    
+
     @property
     def protocol(self):
         """Return value."""
         return self._attr_protocol
-    
+
     @property
     def ledactive(self):
         """Return value."""
@@ -455,7 +451,7 @@ class RfplayerDevice(RestoreEntity):
     async def async_added_to_hass(self):
         """Register update callback."""
         await super().async_added_to_hass()
-        
+
         self.async_on_remove(
             async_dispatcher_connect(
                 self.hass, SIGNAL_AVAILABILITY, self._availability_callback

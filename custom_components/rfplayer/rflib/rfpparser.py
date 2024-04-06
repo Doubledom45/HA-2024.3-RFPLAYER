@@ -197,10 +197,7 @@ def decode_packet(packet: str) -> list:
                 message = json.loads(frame)
                 for protocol in message:
                     packets_found.append(globals()["_".join([protocol,"decode"])](data,message,PacketHeader.gateway.name))
-                    
-    #if packets_found==[None]:
-    #    log.error("No packets found in %s", str(message))
-    #log.debug("Packets Found : %s", str(packets_found))
+
     return packets_found
 
 def encode_packet(packet: PacketType) -> str:
@@ -212,7 +209,6 @@ def encode_packet(packet: PacketType) -> str:
     if "address" in packet:
         return f"ZIA++{command} {protocol} {packet['address']}"
     raise Exception("No ID or Address found")
-
 
 def serialize_packet_id(packet: PacketType) -> str:
     """Serialize packet identifiers into one reversible string."""
@@ -227,7 +223,6 @@ def serialize_packet_id(packet: PacketType) -> str:
             ],
         )
     )
-
 
 def deserialize_packet_id(packet_id: str) -> Dict[str, str]:
     """Deserialize packet id."""
@@ -287,12 +282,12 @@ def packet_events(packet: PacketType) -> Generator[PacketType, None, None]:
     for sensor, value in events.items():
         #log.debug("packet_events, sensor:%s,value:%s", sensor, value)
         unit = packet.get(sensor + "_unit", None)
-        
+
         if forceid==None:
             id=packet_id + field_abbrev[sensor] + PACKET_ID_SEP + field_abbrev[sensor]
         else :
             id=forceid
-            
+
         yield {
             "id": id,
             sensor: value,
@@ -306,12 +301,12 @@ def packet_events(packet: PacketType) -> Generator[PacketType, None, None]:
         for sensor, value in packet.get('elements').items():
             log.debug("packet_events, sensor:%s,value:%s", sensor, value)
             unit = packet.get("sensor" + "_unit", None)
-            
+
             if forceid==None:
                 id=packet_id + value.get("protocol","unknown") + PACKET_ID_SEP + sensor
             else :
                 id=forceid
-                
+
             yield {
                 "id": id,
                 "sensor": "sensor",
@@ -320,5 +315,3 @@ def packet_events(packet: PacketType) -> Generator[PacketType, None, None]:
                 "platform": value.get("platform","unknown"),
                 "protocol": value.get("protocol","unknown")
             }
-
-

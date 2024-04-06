@@ -25,7 +25,9 @@ send_command:
               - ALL_ON
               - ALL_OFF
               - RECEIVER + *
+              - RECEIVER - *
               - REPEATER + *
+              - REPEATER - *
               - REPEATER ON
               - REPEATER OFF
               - LEDACTIVITY 0
@@ -106,8 +108,8 @@ send_command:
       selector:
         text:
     device_id:
-      name: Device ID
-      description: Device ID.
+      name: Device ID ou Cde EDISIOFRAME
+      description: Ou  % du DIM
       required: false
       example: 40
       selector:
@@ -132,14 +134,6 @@ send_command:
               - "number"
               - "sensor"
           mode: dropdown
-    pourcent_dim:
-      name: Pourcent Dim
-      description: Pourcentage du DIM
-      required: false
-      default: false
-      example: 33
-      selector:
-        text:
 
 send_raw_command:
   description: Send device raw command through RFPlayer.
