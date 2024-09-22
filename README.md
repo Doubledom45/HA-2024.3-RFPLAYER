@@ -15,7 +15,7 @@ Pour installation👁‍🗨 👇
   
 
 # Documentation de  l'API
-## [API Version 1.5](https://github.com/Doubledom45/HA-2024.3-RFPLAYER/blob/main/Information/Specifications%20API%20RFPLAYER%20V1.15%20.pdf)
+## [API Version 1.15](https://github.com/Doubledom45/HA-2024.3-RFPLAYER/blob/main/Information/Specifications%20API%20RFPLAYER%20V1.15%20.pdf)
 
 
 
