@@ -9,7 +9,7 @@
 						## RFPLAYER EN HA 2025.11
       
 Pour installation👁‍🗨 👇
-# 🔎 [Voir Lisez_moi.md en Français](https://github.com/Doubledom45/HA-2024.3-RFPLAYER/blob/main/Lisez_moi.md)
+# 🔎 [Voir Lisez_moi.md en Français](https://github.com/Doubledom45/HA-RFPLAYER/blob/main/Lisez_moi.md)
 
   
 
