@@ -1,6 +1,6 @@
 # Installation depuis HACS
-## La référence est HA-2024.3-RFPLAYER 
-# MAIS BIEN UNE VERSION MODIFIER 2025.11
+ 
+# VERSION MODIFIER 2025.11
 
 
 Avec le lien https://github.com/Doubledom45/HA-RFPLAYER
